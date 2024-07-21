@@ -1,5 +1,6 @@
 package com.transactionTrack.ws.controller;
 
+import com.transactionTrack.ws.dto.PersonalTotalExpenseResponseDto;
 import com.transactionTrack.ws.dto.TransactionDto;
 import com.transactionTrack.ws.dto.TransactionResponseDto;
 import com.transactionTrack.ws.model.Transaction;
@@ -38,6 +39,12 @@ public class TransactionController {
     public ResponseEntity<String> deleteTransaction(@PathVariable Long id) {
         transactionService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/totalExpense/{id}")
+    public ResponseEntity<PersonalTotalExpenseResponseDto> getTotalExpenseByUser(@PathVariable Long id) {
+        PersonalTotalExpenseResponseDto totalExpense = transactionService.getTotalExpense(id);
+        return new ResponseEntity<>(totalExpense, HttpStatus.OK);
     }
 
 }
