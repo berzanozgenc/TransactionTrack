@@ -24,7 +24,6 @@ public class UserService {
         user.setEmail(userDto.getEmail());
         user.setPassword(encodedPassword);
         User savedUser = userRepository.save(user);
-
         return new UserDto(
                 savedUser.getEmail(),
                 savedUser.getPassword(),
@@ -40,6 +39,23 @@ public class UserService {
                 user.getPassword(),
                 user.getFirstName(),
                 user.getLastName()
+        );
+    }
+
+    public UserDto update(Long id, UserDto userDto) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+        User updatedUser = userRepository.save(user);
+        return new UserDto(
+                updatedUser.getEmail(),
+                updatedUser.getPassword(),
+                updatedUser.getFirstName(),
+                updatedUser.getLastName()
         );
     }
 
