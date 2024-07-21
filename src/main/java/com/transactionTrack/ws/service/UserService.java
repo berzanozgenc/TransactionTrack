@@ -61,7 +61,6 @@ public class UserService {
         );
     }
 
-    @Transactional
     public void delete(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         userRepository.delete(user);
