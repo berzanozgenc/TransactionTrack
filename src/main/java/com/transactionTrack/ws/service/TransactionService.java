@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class TransactionService {
 
     @Autowired
@@ -59,7 +60,6 @@ public class TransactionService {
         );
     }
 
-    @Transactional
     public void delete(Long id) {
         Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
         transactionRepository.delete(transaction);
