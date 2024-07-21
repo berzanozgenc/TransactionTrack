@@ -51,8 +51,6 @@ public class ScheduledTasks {
             BigDecimal total = transactions.stream()
                     .map(Transaction::getAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
-            // Toplam masrafı kaydedin veya kullanıcıya bildirin
-            // Örneğin: Kullanıcıya e-posta gönderme veya veritabanına kaydetme
             System.out.println("User: " + user.getFirstName() + " - Total " + chronoUnit.toString().toLowerCase() + " expense: " + total);
         }
     }
