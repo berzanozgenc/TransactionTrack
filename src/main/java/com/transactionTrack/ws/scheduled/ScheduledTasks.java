@@ -1,3 +1,5 @@
+package com.transactionTrack.ws.scheduled;
+
 import com.transactionTrack.ws.model.Transaction;
 import com.transactionTrack.ws.model.User;
 import com.transactionTrack.ws.repository.TransactionRepository;
