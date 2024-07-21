@@ -27,9 +27,21 @@ public class UserService {
 
         return new UserDto(
                 savedUser.getEmail(),
-                null,
+                savedUser.getPassword(),
                 savedUser.getFirstName(),
                 savedUser.getLastName()
         );
     }
+
+    public UserDto getById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return new UserDto(
+                user.getEmail(),
+                user.getPassword(),
+                user.getFirstName(),
+                user.getLastName()
+        );
+    }
+
+
 }
