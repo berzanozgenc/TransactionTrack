@@ -17,11 +17,14 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
-        http.authorizeHttpRequests((authentication) ->
-            authentication.requestMatchers(AntPathRequestMatcher.antMatcher("/secured")).authenticated()
-                    .anyRequest().permitAll()
-
-        );
+        http
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers(new AntPathRequestMatcher("/transactions/**")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/users/register")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/users/**")).authenticated()
+                                .anyRequest().permitAll()
+                );
         http.httpBasic(Customizer.withDefaults());
 
         http.csrf(csrf -> csrf.disable());

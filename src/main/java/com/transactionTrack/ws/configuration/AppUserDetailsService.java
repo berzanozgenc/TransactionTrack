@@ -3,8 +3,6 @@ package com.transactionTrack.ws.configuration;
 import com.transactionTrack.ws.model.User;
 import com.transactionTrack.ws.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,21 +22,6 @@ public class AppUserDetailsService implements UserDetailsService {
         if(inDB == null){
             throw new UsernameNotFoundException(email + " is not found");
         }
-        return new UserDetails() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return AuthorityUtils.createAuthorityList("ROLE_USER");
-            }
-
-            @Override
-            public String getPassword() {
-                return inDB.getPassword();
-            }
-
-            @Override
-            public String getUsername() {
-                return inDB.getEmail();
-            }
-        };
+       return new CurrentUser(inDB);
     }
 }

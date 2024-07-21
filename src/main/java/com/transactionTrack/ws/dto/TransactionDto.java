@@ -17,7 +17,4 @@ public class TransactionDto {
     @NotBlank(message = "Tutar Kısmı Boş Olamaz!")
     private BigDecimal amount;
 
-    @NotBlank
-    private Long user_id;
-
 }

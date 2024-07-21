@@ -23,11 +23,13 @@ public class TransactionService {
     @Autowired
     UserRepository userRepository;
 
-    public TransactionResponseDto create(TransactionDto transactionDto){
+    public TransactionResponseDto create(TransactionDto transactionDto, Long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         Transaction transaction = new Transaction();
         transaction.setTransactionDate(LocalDateTime.now());
         transaction.setAmount(transactionDto.getAmount());
-        //EKLEME YAP
+        transaction.setUser(user);
+
         Transaction savedTransaction = transactionRepository.save(transaction);
         return new TransactionResponseDto(
                 savedTransaction.getTransactionDate(),
@@ -75,4 +77,5 @@ public class TransactionService {
         personalTotalExpenseResponseDto.setUser(user);
         return personalTotalExpenseResponseDto;
     }
+
 }
