@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(EmailValidationException.class)
     public ResponseEntity<ErrorDetails> handleEmailValidationException(EmailValidationException exception,
                                                                     WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(TransactionNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleTransactionNotFoundException(TransactionNotFoundException exception,
                                                                        WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleEmailNotFoundException(EmailNotFoundException exception,
                                                                            WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
@@ -59,8 +59,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorDetails> handleAmountValidationException(EmailNotFoundException exception,
+    @ExceptionHandler(AmountValidationException.class)
+    public ResponseEntity<ErrorDetails> handleAmountValidationException(AmountValidationException exception,
                                                                      WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
