@@ -36,8 +36,8 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionResponseDto> updateTransaction(@PathVariable Long id, @RequestBody UpdateTransactionDto updateTransactionDto) {
-        TransactionResponseDto updatedTransaction = transactionService.update(id, updateTransactionDto);
+    public ResponseEntity<TransactionResponseDto> updateTransaction(@PathVariable Long id, @RequestBody TransactionDto transactionDto) {
+        TransactionResponseDto updatedTransaction = transactionService.update(id, transactionDto);
         return new ResponseEntity<>(updatedTransaction, HttpStatus.OK);
     }
 

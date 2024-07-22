@@ -55,11 +55,12 @@ public class TransactionService {
         );
     }
 
-    public TransactionResponseDto update(Long id, UpdateTransactionDto updateTransactionDto) {
+    public TransactionResponseDto update(Long id, TransactionDto transactionDto) {
+        if (transactionDto.getAmount().compareTo(BigDecimal.ZERO) < 0){
+            throw new AmountValidationException("Amount cannot be negative.");
+        }
         Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new TransactionNotFoundException("Transaction not found"));
-        User user = userRepository.findById(updateTransactionDto.getUser_id()).orElseThrow(() -> new UserNotFoundException("User not found"));
-        transaction.setAmount(updateTransactionDto.getAmount());
-        transaction.setUser(user);
+        transaction.setAmount(transactionDto.getAmount());
         Transaction updatedTransaction = transactionRepository.save(transaction);
         return new TransactionResponseDto(
                 updatedTransaction.getTransactionDate(),
