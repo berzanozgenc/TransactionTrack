@@ -3,7 +3,9 @@ package com.transactionTrack.ws.service;
 import com.transactionTrack.ws.dto.UserDto;
 import com.transactionTrack.ws.exception.EmailValidationException;
 import com.transactionTrack.ws.exception.UserNotFoundException;
+import com.transactionTrack.ws.model.Transaction;
 import com.transactionTrack.ws.model.User;
+import com.transactionTrack.ws.repository.TransactionRepository;
 import com.transactionTrack.ws.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +21,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TransactionRepository transactionRepository;
 
     public UserDto create(UserDto userDto){
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
@@ -72,6 +77,7 @@ public class UserService {
 
     public void delete(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        transactionRepository.deleteAllByUser(user.getId());
         userRepository.delete(user);
     }
 

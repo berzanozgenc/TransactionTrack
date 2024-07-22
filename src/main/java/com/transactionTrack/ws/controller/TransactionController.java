@@ -44,7 +44,7 @@ public class TransactionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTransaction(@PathVariable Long id) {
         transactionService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Transaction with id: " + id + " deleted successfully",HttpStatus.OK);
     }
 
     @GetMapping("/personalTotalExpense")
