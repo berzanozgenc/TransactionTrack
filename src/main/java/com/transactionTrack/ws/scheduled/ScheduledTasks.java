@@ -40,6 +40,12 @@ public class ScheduledTasks {
         aggregateExpenses(ChronoUnit.MONTHS);
     }
 
+    // Dakikalık masrafları hesaplayan iş
+    @Scheduled(cron = "0 * * * * ?") // Her dakika başında çalışır
+    public void aggregateMinuteExpenses() {
+        aggregateExpenses(ChronoUnit.MINUTES);
+    }
+
     private void aggregateExpenses(ChronoUnit chronoUnit) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startTime = getStartTime(now, chronoUnit);
@@ -57,6 +63,8 @@ public class ScheduledTasks {
 
     private LocalDateTime getStartTime(LocalDateTime now, ChronoUnit chronoUnit) {
         switch (chronoUnit) {
+            case MINUTES:
+                return now.minusMinutes(1).withSecond(0).withNano(0);
             case DAYS:
                 return now.minusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
             case WEEKS:
