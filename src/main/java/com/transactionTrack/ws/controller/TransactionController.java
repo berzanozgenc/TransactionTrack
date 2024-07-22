@@ -4,6 +4,7 @@ import com.transactionTrack.ws.configuration.CurrentUser;
 import com.transactionTrack.ws.dto.PersonalTotalExpenseResponseDto;
 import com.transactionTrack.ws.dto.TransactionDto;
 import com.transactionTrack.ws.dto.TransactionResponseDto;
+import com.transactionTrack.ws.dto.UpdateTransactionDto;
 import com.transactionTrack.ws.model.Transaction;
 import com.transactionTrack.ws.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionResponseDto> updateTransaction(@PathVariable Long id, @RequestBody TransactionDto transactionDto) {
-        TransactionResponseDto updatedTransaction = transactionService.update(id, transactionDto);
+    public ResponseEntity<TransactionResponseDto> updateTransaction(@PathVariable Long id, @RequestBody UpdateTransactionDto updateTransactionDto) {
+        TransactionResponseDto updatedTransaction = transactionService.update(id, updateTransactionDto);
         return new ResponseEntity<>(updatedTransaction, HttpStatus.OK);
     }
 

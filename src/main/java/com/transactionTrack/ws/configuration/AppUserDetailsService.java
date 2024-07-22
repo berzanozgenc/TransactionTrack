@@ -1,5 +1,6 @@
 package com.transactionTrack.ws.configuration;
 
+import com.transactionTrack.ws.exception.EmailNotFoundException;
 import com.transactionTrack.ws.model.User;
 import com.transactionTrack.ws.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AppUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User inDB = userService.findByEmail(email);
         if(inDB == null){
-            throw new UsernameNotFoundException(email + " is not found");
+            throw new EmailNotFoundException(email + " is not found");
         }
        return new CurrentUser(inDB);
     }

@@ -1,6 +1,8 @@
 package com.transactionTrack.ws.service;
 
 import com.transactionTrack.ws.dto.UserDto;
+import com.transactionTrack.ws.exception.EmailValidationException;
+import com.transactionTrack.ws.exception.UserNotFoundException;
 import com.transactionTrack.ws.model.User;
 import com.transactionTrack.ws.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ public class UserService {
 
     public UserDto create(UserDto userDto){
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        if (userRepository.existsByEmail(userDto.getEmail())) {
+            throw new EmailValidationException("This email is already in use");
+        }
+
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -35,7 +41,7 @@ public class UserService {
     }
 
     public UserDto getById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         return new UserDto(
                 user.getEmail(),
                 user.getPassword(),
@@ -45,7 +51,10 @@ public class UserService {
     }
 
     public UserDto update(Long id, UserDto userDto) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        if (userRepository.existsByEmail(userDto.getEmail())) {
+            throw new EmailValidationException("Bu e-posta adresi zaten kullanılmakta.");
+        }
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -62,7 +71,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         userRepository.delete(user);
     }
 
