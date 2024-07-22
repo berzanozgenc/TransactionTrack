@@ -3,7 +3,6 @@ package com.transactionTrack.ws.service;
 import com.transactionTrack.ws.dto.PersonalTotalExpenseResponseDto;
 import com.transactionTrack.ws.dto.TransactionDto;
 import com.transactionTrack.ws.dto.TransactionResponseDto;
-import com.transactionTrack.ws.dto.UpdateTransactionDto;
 import com.transactionTrack.ws.exception.AmountValidationException;
 import com.transactionTrack.ws.exception.TransactionNotFoundException;
 import com.transactionTrack.ws.exception.UserNotFoundException;

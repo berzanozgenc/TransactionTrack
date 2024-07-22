@@ -4,18 +4,18 @@ import com.transactionTrack.ws.configuration.CurrentUser;
 import com.transactionTrack.ws.dto.PersonalTotalExpenseResponseDto;
 import com.transactionTrack.ws.dto.TransactionDto;
 import com.transactionTrack.ws.dto.TransactionResponseDto;
-import com.transactionTrack.ws.dto.UpdateTransactionDto;
-import com.transactionTrack.ws.model.Transaction;
 import com.transactionTrack.ws.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
 @RestController
+@Tag(name = "Transactions", description = "Transaction management APIs")
 @RequestMapping("/transactions")
 public class TransactionController {
 
@@ -53,5 +53,4 @@ public class TransactionController {
         PersonalTotalExpenseResponseDto totalExpense = transactionService.getTotalExpense(userId);
         return new ResponseEntity<>(totalExpense, HttpStatus.OK);
     }
-
 }

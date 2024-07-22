@@ -2,6 +2,7 @@ package com.transactionTrack.ws.controller;
 
 import com.transactionTrack.ws.dto.UserDto;
 import com.transactionTrack.ws.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Users", description = "User management APIs")
 @RequestMapping("/users")
 public class UserController {
 
